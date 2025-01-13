@@ -34,12 +34,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
-      errorBuilder: (context, state) => const ProductDetailsPageWidget(),
+      errorBuilder: (context, state) => const NavBarPage(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => const ProductDetailsPageWidget(),
+          builder: (context, _) => const NavBarPage(),
         ),
         FFRoute(
           name: 'ProductDetailsPage',
@@ -49,17 +49,23 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'CustomFunction',
           path: '/customFunction',
-          builder: (context, params) => const CustomFunctionWidget(),
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'CustomFunction')
+              : const CustomFunctionWidget(),
         ),
         FFRoute(
           name: 'CustomWidget',
           path: '/customWidget',
-          builder: (context, params) => const CustomWidgetWidget(),
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'CustomWidget')
+              : const CustomWidgetWidget(),
         ),
         FFRoute(
           name: 'CustomAction',
           path: '/customAction',
-          builder: (context, params) => const CustomActionWidget(),
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'CustomAction')
+              : const CustomActionWidget(),
         ),
         FFRoute(
           name: 'ProjectMembers',
@@ -69,12 +75,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'StopWatch',
           path: '/stopWatch',
-          builder: (context, params) => const StopWatchWidget(),
+          builder: (context, params) => const NavBarPage(
+            initialPage: '',
+            page: StopWatchWidget(),
+          ),
         ),
         FFRoute(
           name: 'StopWatchWithPubDev',
           path: '/stopWatchWithPubDev',
-          builder: (context, params) => const StopWatchWithPubDevWidget(),
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'StopWatchWithPubDev')
+              : const StopWatchWithPubDevWidget(),
         ),
         FFRoute(
           name: 'UploadFile',
@@ -89,28 +100,24 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'PostSalesAuth',
           path: '/postSalesAuth',
-          builder: (context, params) => const PostSalesAuthWidget(),
+          builder: (context, params) => params.isEmpty
+              ? const NavBarPage(initialPage: 'PostSalesAuth')
+              : const PostSalesAuthWidget(),
         ),
         FFRoute(
           name: 'HomePage',
           path: '/homePage',
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'HomePage')
-              : const HomePageWidget(),
+          builder: (context, params) => const HomePageWidget(),
         ),
         FFRoute(
           name: 'SecondWhateverPage',
           path: '/secondWhateverPage',
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'SecondWhateverPage')
-              : const SecondWhateverPageWidget(),
+          builder: (context, params) => const SecondWhateverPageWidget(),
         ),
         FFRoute(
           name: 'UserInformations',
           path: '/userInformations',
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'UserInformations')
-              : const UserInformationsWidget(),
+          builder: (context, params) => const UserInformationsWidget(),
         ),
         FFRoute(
           name: 'SecondTestInSalesBrands',

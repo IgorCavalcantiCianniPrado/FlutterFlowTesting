@@ -86,7 +86,7 @@ class NavBarPage extends StatefulWidget {
 
 /// This is the private State class that goes with NavBarPage.
 class _NavBarPageState extends State<NavBarPage> {
-  String _currentPageName = 'HomePage';
+  String _currentPageName = 'CustomFunction';
   late Widget? _currentPage;
 
   @override
@@ -99,9 +99,11 @@ class _NavBarPageState extends State<NavBarPage> {
   @override
   Widget build(BuildContext context) {
     final tabs = {
-      'HomePage': const HomePageWidget(),
-      'SecondWhateverPage': const SecondWhateverPageWidget(),
-      'UserInformations': const UserInformationsWidget(),
+      'CustomFunction': const CustomFunctionWidget(),
+      'CustomWidget': const CustomWidgetWidget(),
+      'CustomAction': const CustomActionWidget(),
+      'StopWatchWithPubDev': const StopWatchWithPubDevWidget(),
+      'PostSalesAuth': const PostSalesAuthWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
@@ -136,14 +138,14 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.home_outlined,
+                  Icons.functions_sharp,
                   color: currentIndex == 0
                       ? FlutterFlowTheme.of(context).primary
                       : const Color(0x8A000000),
                   size: 24.0,
                 ),
                 Text(
-                  'Home',
+                  'Function',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 0
@@ -160,14 +162,14 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.looks_two_rounded,
+                  Icons.text_fields,
                   color: currentIndex == 1
                       ? FlutterFlowTheme.of(context).primary
                       : const Color(0x8A000000),
                   size: 24.0,
                 ),
                 Text(
-                  'Whatever',
+                  'AnimText',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 1
@@ -184,17 +186,65 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.person,
+                  Icons.attractions_sharp,
                   color: currentIndex == 2
                       ? FlutterFlowTheme.of(context).primary
                       : const Color(0x8A000000),
                   size: 24.0,
                 ),
                 Text(
-                  'Info',
+                  'Action',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 2
+                        ? FlutterFlowTheme.of(context).primary
+                        : const Color(0x8A000000),
+                    fontSize: 11.0,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          FloatingNavbarItem(
+            customWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.watch_later,
+                  color: currentIndex == 3
+                      ? FlutterFlowTheme.of(context).primary
+                      : const Color(0x8A000000),
+                  size: 24.0,
+                ),
+                Text(
+                  'StopWatch',
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: currentIndex == 3
+                        ? FlutterFlowTheme.of(context).primary
+                        : const Color(0x8A000000),
+                    fontSize: 11.0,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          FloatingNavbarItem(
+            customWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.hdr_auto,
+                  color: currentIndex == 4
+                      ? FlutterFlowTheme.of(context).primary
+                      : const Color(0x8A000000),
+                  size: 24.0,
+                ),
+                Text(
+                  'AuthSales',
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: currentIndex == 4
                         ? FlutterFlowTheme.of(context).primary
                         : const Color(0x8A000000),
                     fontSize: 11.0,
