@@ -116,6 +116,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'SecondTestInSalesBrands',
           path: '/secondTestInSalesBrands',
           builder: (context, params) => const SecondTestInSalesBrandsWidget(),
+        ),
+        FFRoute(
+          name: 'CommitTestPage',
+          path: '/commitTestPage',
+          builder: (context, params) => const CommitTestPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
