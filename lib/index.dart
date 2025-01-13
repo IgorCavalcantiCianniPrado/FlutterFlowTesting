@@ -29,3 +29,5 @@ export '/pages/a_p_i_testing/second_test_in_sales_brands/second_test_in_sales_br
     show SecondTestInSalesBrandsWidget;
 export '/pages/commit_test/commit_test_page/commit_test_page_widget.dart'
     show CommitTestPageWidget;
+export '/pages/commit_test/commit_test_page_two/commit_test_page_two_widget.dart'
+    show CommitTestPageTwoWidget;

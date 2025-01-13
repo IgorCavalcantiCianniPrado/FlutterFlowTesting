@@ -34,12 +34,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
-      errorBuilder: (context, state) => const SecondTestInSalesBrandsWidget(),
+      errorBuilder: (context, state) => const ProductDetailsPageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => const SecondTestInSalesBrandsWidget(),
+          builder: (context, _) => const ProductDetailsPageWidget(),
         ),
         FFRoute(
           name: 'ProductDetailsPage',
@@ -121,6 +121,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'CommitTestPage',
           path: '/commitTestPage',
           builder: (context, params) => const CommitTestPageWidget(),
+        ),
+        FFRoute(
+          name: 'CommitTestPageTwo',
+          path: '/commitTestPageTwo',
+          builder: (context, params) => const CommitTestPageTwoWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
