@@ -66,6 +66,69 @@ class GetVehicleBrandsCall {
           .toList();
 }
 
+class SalesBoAuthCall {
+  static Future<ApiCallResponse> call({
+    String? user = '',
+    String? password = '',
+    String? clientId = '',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "username": "${escapeStringForJson(user)}",
+  "password": "${escapeStringForJson(password)}",
+  "clientId": "${escapeStringForJson(clientId)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'SalesBoAuth',
+      apiUrl: 'https://api-stg.ituran.com.br/salesbo/Authentication/Token',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: true,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static String? accessToken(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.Data.access_token''',
+      ));
+}
+
+class GetSpecificCepCall {
+  static Future<ApiCallResponse> call({
+    String? authToken = '',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'GetSpecificCep',
+      apiUrl: 'http://api-stg.ituran.com.br/salesbo/order/cep/04125030',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'Bearer $authToken',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  static String? city(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.Data.CIDADE.NM_CIDADE''',
+      ));
+}
+
 class ApiPagingParams {
   int nextPageNumber = 0;
   int numItems = 0;

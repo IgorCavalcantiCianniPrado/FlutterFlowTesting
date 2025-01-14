@@ -31,3 +31,11 @@ export '/pages/commit_test/commit_test_page/commit_test_page_widget.dart'
     show CommitTestPageWidget;
 export '/pages/commit_test/commit_test_page_two/commit_test_page_two_widget.dart'
     show CommitTestPageTwoWidget;
+export '/pages/a_proof_of_concept/a_login/a_login_widget.dart'
+    show ALoginWidget;
+export '/pages/a_proof_of_concept/b_create_lead/b_create_lead_widget.dart'
+    show BCreateLeadWidget;
+export '/pages/a_proof_of_concept/c_choose_products/c_choose_products_widget.dart'
+    show CChooseProductsWidget;
+export '/pages/a_proof_of_concept/d_make_payment/d_make_payment_widget.dart'
+    show DMakePaymentWidget;
