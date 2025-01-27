@@ -6,3 +6,5 @@ export 'row.dart';
 export 'table.dart';
 
 export 'tables/students.dart';
+export 'tables/cases.dart';
+export 'tables/conversations.dart';

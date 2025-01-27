@@ -1,4 +1,4 @@
-import '/backend/supabase/supabase.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -193,12 +193,9 @@ class _ProjectMembersWidgetState extends State<ProjectMembersWidget> {
                 decoration: const BoxDecoration(
                   color: Color(0xFFF1F4F8),
                 ),
-                child: FutureBuilder<List<StudentsRow>>(
-                  future: StudentsTable().queryRows(
-                    queryFn: (q) => q.eqOrNull(
-                      'ethiopia',
-                      true,
-                    ),
+                child: FutureBuilder<ApiCallResponse>(
+                  future: SupabaseIntegrationGroup.getAllStudentsCall.call(
+                    ethiopiaMember: true,
                   ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
@@ -214,75 +211,89 @@ class _ProjectMembersWidgetState extends State<ProjectMembersWidget> {
                         ),
                       );
                     }
-                    List<StudentsRow> listViewStudentsRowList = snapshot.data!;
+                    final addedStudentsListGetAllStudentsResponse =
+                        snapshot.data!;
 
-                    return ListView.builder(
-                      padding: EdgeInsets.zero,
-                      primary: false,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: listViewStudentsRowList.length,
-                      itemBuilder: (context, listViewIndex) {
-                        final listViewStudentsRow =
-                            listViewStudentsRowList[listViewIndex];
-                        return Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              16.0, 12.0, 12.0, 12.0),
-                          child: Container(
-                            width: 160.0,
-                            height: 100.0,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: const [
-                                BoxShadow(
-                                  blurRadius: 4.0,
-                                  color: Color(0x34090F13),
-                                  offset: Offset(
-                                    0.0,
-                                    2.0,
-                                  ),
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(50.0),
-                                    child: Image.network(
-                                      listViewStudentsRow.photoUrl!,
-                                      width: 60.0,
-                                      height: 60.0,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 8.0, 0.0, 0.0),
-                                    child: Text(
-                                      valueOrDefault<String>(
-                                        listViewStudentsRow.name,
-                                        'name',
+                    return Builder(
+                      builder: (context) {
+                        final addedStudentsRow = getJsonField(
+                          addedStudentsListGetAllStudentsResponse.jsonBody,
+                          r'''$[:]''',
+                        ).toList();
+
+                        return ListView.builder(
+                          padding: EdgeInsets.zero,
+                          primary: false,
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: addedStudentsRow.length,
+                          itemBuilder: (context, addedStudentsRowIndex) {
+                            final addedStudentsRowItem =
+                                addedStudentsRow[addedStudentsRowIndex];
+                            return Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 12.0, 12.0, 12.0),
+                              child: Container(
+                                width: 160.0,
+                                height: 100.0,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      blurRadius: 4.0,
+                                      color: Color(0x34090F13),
+                                      offset: Offset(
+                                        0.0,
+                                        2.0,
                                       ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Plus Jakarta Sans',
-                                            color: const Color(0xFF14181B),
-                                            fontSize: 14.0,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                    ),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(50.0),
+                                        child: Image.network(
+                                          getJsonField(
+                                            addedStudentsRowItem,
+                                            r'''$.photo_url''',
+                                          ).toString(),
+                                          width: 60.0,
+                                          height: 60.0,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 8.0, 0.0, 0.0),
+                                        child: Text(
+                                          getJsonField(
+                                            addedStudentsRowItem,
+                                            r'''$.name''',
+                                          ).toString(),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Plus Jakarta Sans',
+                                                color: const Color(0xFF14181B),
+                                                fontSize: 14.0,
+                                                letterSpacing: 0.0,
+                                                fontWeight: FontWeight.normal,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
-                          ),
+                            );
+                          },
                         );
                       },
                     );
@@ -304,12 +315,9 @@ class _ProjectMembersWidgetState extends State<ProjectMembersWidget> {
               ),
               Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 44.0),
-                child: FutureBuilder<List<StudentsRow>>(
-                  future: StudentsTable().queryRows(
-                    queryFn: (q) => q.eqOrNull(
-                      'ethiopia',
-                      false,
-                    ),
+                child: FutureBuilder<ApiCallResponse>(
+                  future: SupabaseIntegrationGroup.getAllStudentsCall.call(
+                    ethiopiaMember: false,
                   ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
@@ -325,157 +333,226 @@ class _ProjectMembersWidgetState extends State<ProjectMembersWidget> {
                         ),
                       );
                     }
-                    List<StudentsRow> listViewStudentsRowList = snapshot.data!;
+                    final addStudentListGetAllStudentsResponse = snapshot.data!;
 
-                    return ListView.builder(
-                      padding: EdgeInsets.zero,
-                      primary: false,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      itemCount: listViewStudentsRowList.length,
-                      itemBuilder: (context, listViewIndex) {
-                        final listViewStudentsRow =
-                            listViewStudentsRowList[listViewIndex];
-                        return Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              16.0, 4.0, 16.0, 8.0),
-                          child: Container(
-                            width: double.infinity,
-                            height: 60.0,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: const [
-                                BoxShadow(
-                                  blurRadius: 4.0,
-                                  color: Color(0x32000000),
-                                  offset: Offset(
-                                    0.0,
-                                    2.0,
-                                  ),
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            child: Padding(
+                    return Builder(
+                      builder: (context) {
+                        final notAddedStudents = getJsonField(
+                          addStudentListGetAllStudentsResponse.jsonBody,
+                          r'''$[:]''',
+                        ).toList();
+
+                        return ListView.builder(
+                          padding: EdgeInsets.zero,
+                          primary: false,
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemCount: notAddedStudents.length,
+                          itemBuilder: (context, notAddedStudentsIndex) {
+                            final notAddedStudentsItem =
+                                notAddedStudents[notAddedStudentsIndex];
+                            return Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                  8.0, 0.0, 8.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(26.0),
-                                    child: Image.network(
-                                      listViewStudentsRow.photoUrl!,
-                                      width: 36.0,
-                                      height: 36.0,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          12.0, 0.0, 0.0, 0.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            valueOrDefault<String>(
-                                              listViewStudentsRow.name,
-                                              'name',
-                                            ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily:
-                                                      'Plus Jakarta Sans',
-                                                  color: const Color(0xFF14181B),
-                                                  fontSize: 14.0,
-                                                  letterSpacing: 0.0,
-                                                  fontWeight: FontWeight.normal,
-                                                ),
-                                          ),
-                                          Row(
+                                  16.0, 4.0, 16.0, 8.0),
+                              child: Container(
+                                width: double.infinity,
+                                height: 60.0,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      blurRadius: 4.0,
+                                      color: Color(0x32000000),
+                                      offset: Offset(
+                                        0.0,
+                                        2.0,
+                                      ),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      8.0, 0.0, 8.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(26.0),
+                                        child: Image.network(
+                                          getJsonField(
+                                            notAddedStudentsItem,
+                                            r'''$.photo_url''',
+                                          ).toString(),
+                                          width: 36.0,
+                                          height: 36.0,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  12.0, 0.0, 0.0, 0.0),
+                                          child: Column(
                                             mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
-                                              Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 4.0, 0.0, 0.0),
-                                                child: Text(
-                                                  valueOrDefault<String>(
-                                                    listViewStudentsRow.email,
-                                                    'email',
+                                              Text(
+                                                getJsonField(
+                                                  notAddedStudentsItem,
+                                                  r'''$.name''',
+                                                ).toString(),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              'Plus Jakarta Sans',
+                                                          color:
+                                                              const Color(0xFF14181B),
+                                                          fontSize: 14.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                        ),
+                                              ),
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 4.0,
+                                                                0.0, 0.0),
+                                                    child: Text(
+                                                      getJsonField(
+                                                        notAddedStudentsItem,
+                                                        r'''$.email''',
+                                                      ).toString(),
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .labelMedium
+                                                          .override(
+                                                            fontFamily:
+                                                                'Plus Jakarta Sans',
+                                                            color: const Color(
+                                                                0xFF57636C),
+                                                            fontSize: 14.0,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .normal,
+                                                          ),
+                                                    ),
                                                   ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .labelMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            'Plus Jakarta Sans',
-                                                        color:
-                                                            const Color(0xFF57636C),
-                                                        fontSize: 14.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                      ),
-                                                ),
+                                                ],
                                               ),
                                             ],
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  FFButtonWidget(
-                                    onPressed: () async {
-                                      await StudentsTable().update(
-                                        data: {
-                                          'ethiopia': true,
-                                        },
-                                        matchingRows: (rows) => rows.eqOrNull(
-                                          'id',
-                                          listViewStudentsRow.id,
                                         ),
-                                      );
-                                    },
-                                    text: '+ Add',
-                                    options: FFButtonOptions(
-                                      width: 70.0,
-                                      height: 36.0,
-                                      padding: const EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 0.0),
-                                      iconPadding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              0.0, 0.0, 0.0, 0.0),
-                                      color: const Color(0xFF4B39EF),
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            color: Colors.white,
-                                            fontSize: 14.0,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                      elevation: 2.0,
-                                      borderSide: const BorderSide(
-                                        color: Colors.transparent,
-                                        width: 1.0,
                                       ),
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
+                                      FFButtonWidget(
+                                        onPressed: () async {
+                                          _model.addStudentReturn =
+                                              await AddStudentInEthiopiaProjectCall
+                                                  .call(
+                                            studentId: getJsonField(
+                                              notAddedStudentsItem,
+                                              r'''$.id''',
+                                            ),
+                                          );
+
+                                          if ((_model.addStudentReturn
+                                                  ?.succeeded ??
+                                              true)) {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  'Studend Added. Operation has been successful!',
+                                                  style: TextStyle(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                  ),
+                                                ),
+                                                duration: const Duration(
+                                                    milliseconds: 4000),
+                                                backgroundColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondary,
+                                              ),
+                                            );
+                                          } else {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  (_model.addStudentReturn
+                                                              ?.jsonBody ??
+                                                          '')
+                                                      .toString(),
+                                                  style: TextStyle(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                  ),
+                                                ),
+                                                duration: const Duration(
+                                                    milliseconds: 4000),
+                                                backgroundColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondary,
+                                              ),
+                                            );
+                                          }
+
+                                          safeSetState(() {});
+                                        },
+                                        text: '+ Add',
+                                        options: FFButtonOptions(
+                                          width: 70.0,
+                                          height: 36.0,
+                                          padding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
+                                          iconPadding:
+                                              const EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
+                                          color: const Color(0xFF4B39EF),
+                                          textStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Outfit',
+                                                    color: Colors.white,
+                                                    fontSize: 14.0,
+                                                    letterSpacing: 0.0,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
+                                          elevation: 2.0,
+                                          borderSide: const BorderSide(
+                                            color: Colors.transparent,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
-                          ),
+                            );
+                          },
                         );
                       },
                     );

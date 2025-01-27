@@ -34,17 +34,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
-      errorBuilder: (context, state) => const ALoginWidget(),
+      errorBuilder: (context, state) => const RealtimeChatApiCallWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => const ALoginWidget(),
-        ),
-        FFRoute(
-          name: 'ProductDetailsPage',
-          path: '/productDetailsPage',
-          builder: (context, params) => const ProductDetailsPageWidget(),
+          builder: (context, _) => const RealtimeChatApiCallWidget(),
         ),
         FFRoute(
           name: 'CustomFunction',
@@ -68,11 +63,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               : const CustomActionWidget(),
         ),
         FFRoute(
-          name: 'ProjectMembers',
-          path: '/projectMembers',
-          builder: (context, params) => const ProjectMembersWidget(),
-        ),
-        FFRoute(
           name: 'StopWatch',
           path: '/stopWatch',
           builder: (context, params) => const NavBarPage(
@@ -93,18 +83,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const UploadFileWidget(),
         ),
         FFRoute(
-          name: 'GetListVehicleBrands',
-          path: '/getListVehicleBrands',
-          builder: (context, params) => const GetListVehicleBrandsWidget(),
-        ),
-        FFRoute(
-          name: 'PostSalesAuth',
-          path: '/postSalesAuth',
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'PostSalesAuth')
-              : const PostSalesAuthWidget(),
-        ),
-        FFRoute(
           name: 'HomePage',
           path: '/homePage',
           builder: (context, params) => const HomePageWidget(),
@@ -118,11 +96,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'UserInformations',
           path: '/userInformations',
           builder: (context, params) => const UserInformationsWidget(),
-        ),
-        FFRoute(
-          name: 'SecondTestInSalesBrands',
-          path: '/secondTestInSalesBrands',
-          builder: (context, params) => const SecondTestInSalesBrandsWidget(),
         ),
         FFRoute(
           name: 'CommitTestPage',
@@ -140,19 +113,73 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const ALoginWidget(),
         ),
         FFRoute(
-          name: 'B_CreateLead',
-          path: '/bCreateLead',
-          builder: (context, params) => const BCreateLeadWidget(),
+          name: 'D_LeadAndQuote',
+          path: '/dLeadAndQuote',
+          builder: (context, params) => DLeadAndQuoteWidget(
+            profileName: params.getParam(
+              'profileName',
+              ParamType.String,
+            ),
+            birthDate: params.getParam(
+              'birthDate',
+              ParamType.String,
+            ),
+          ),
         ),
         FFRoute(
-          name: 'C_ChooseProducts',
-          path: '/cChooseProducts',
-          builder: (context, params) => const CChooseProductsWidget(),
+          name: 'E_ChooseProducts',
+          path: '/eChooseProducts',
+          builder: (context, params) => const EChooseProductsWidget(),
         ),
         FFRoute(
-          name: 'D_MakePayment',
-          path: '/dMakePayment',
-          builder: (context, params) => const DMakePaymentWidget(),
+          name: 'F_MakePayment',
+          path: '/fMakePayment',
+          builder: (context, params) => const FMakePaymentWidget(),
+        ),
+        FFRoute(
+          name: 'B_Partner',
+          path: '/bPartner',
+          builder: (context, params) => const BPartnerWidget(),
+        ),
+        FFRoute(
+          name: 'C_SalesChannel',
+          path: '/cSalesChannel',
+          builder: (context, params) => const CSalesChannelWidget(),
+        ),
+        FFRoute(
+          name: 'DivergenceFipeTable',
+          path: '/divergenceFipeTable',
+          builder: (context, params) => const DivergenceFipeTableWidget(),
+        ),
+        FFRoute(
+          name: 'TestingFormValidation',
+          path: '/testingFormValidation',
+          builder: (context, params) => const TestingFormValidationWidget(),
+        ),
+        FFRoute(
+          name: 'AssociateCase',
+          path: '/associateCase',
+          builder: (context, params) => const AssociateCaseWidget(),
+        ),
+        FFRoute(
+          name: 'RealtimeChatApiCall',
+          path: '/realtimeChatApiCall',
+          builder: (context, params) => const RealtimeChatApiCallWidget(),
+        ),
+        FFRoute(
+          name: 'ProjectMembers',
+          path: '/projectMembers',
+          builder: (context, params) => const ProjectMembersWidget(),
+        ),
+        FFRoute(
+          name: 'ProjectMembersCopy',
+          path: '/projectMembersCopy',
+          builder: (context, params) => const ProjectMembersCopyWidget(),
+        ),
+        FFRoute(
+          name: 'RealtimeChatSupabaseQuery',
+          path: '/realtimeChatSupabaseQuery',
+          builder: (context, params) => const RealtimeChatSupabaseQueryWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
