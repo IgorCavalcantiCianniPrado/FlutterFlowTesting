@@ -1,41 +1,51 @@
 // Export pages
-export '/pages/general/product_details_page/product_details_page_widget.dart'
-    show ProductDetailsPageWidget;
 export '/pages/general/custom_function/custom_function_widget.dart'
     show CustomFunctionWidget;
 export '/pages/general/custom_widget/custom_widget_widget.dart'
     show CustomWidgetWidget;
 export '/pages/general/custom_action/custom_action_widget.dart'
     show CustomActionWidget;
-export '/pages/supabase_testing/project_members/project_members_widget.dart'
-    show ProjectMembersWidget;
 export '/pages/flutter_project/stop_watch/stop_watch_widget.dart'
     show StopWatchWidget;
 export '/pages/flutter_project/stop_watch_with_pub_dev/stop_watch_with_pub_dev_widget.dart'
     show StopWatchWithPubDevWidget;
 export '/pages/supabase_testing/upload_file/upload_file_widget.dart'
     show UploadFileWidget;
-export '/pages/a_p_i_testing/get_list_vehicle_brands/get_list_vehicle_brands_widget.dart'
-    show GetListVehicleBrandsWidget;
-export '/pages/a_p_i_testing/post_sales_auth/post_sales_auth_widget.dart'
-    show PostSalesAuthWidget;
 export '/pages/common_resources/home_page/home_page_widget.dart'
     show HomePageWidget;
 export '/pages/common_resources/second_whatever_page/second_whatever_page_widget.dart'
     show SecondWhateverPageWidget;
 export '/pages/common_resources/user_informations/user_informations_widget.dart'
     show UserInformationsWidget;
-export '/pages/a_p_i_testing/second_test_in_sales_brands/second_test_in_sales_brands_widget.dart'
-    show SecondTestInSalesBrandsWidget;
 export '/pages/commit_test/commit_test_page/commit_test_page_widget.dart'
     show CommitTestPageWidget;
 export '/pages/commit_test/commit_test_page_two/commit_test_page_two_widget.dart'
     show CommitTestPageTwoWidget;
-export '/pages/a_proof_of_concept/a_login/a_login_widget.dart'
+export '/pages/a1_proof_of_concept/a_login/a_login_widget.dart'
     show ALoginWidget;
-export '/pages/a_proof_of_concept/b_create_lead/b_create_lead_widget.dart'
-    show BCreateLeadWidget;
-export '/pages/a_proof_of_concept/c_choose_products/c_choose_products_widget.dart'
-    show CChooseProductsWidget;
-export '/pages/a_proof_of_concept/d_make_payment/d_make_payment_widget.dart'
-    show DMakePaymentWidget;
+export '/pages/a1_proof_of_concept/d_lead_and_quote/d_lead_and_quote_widget.dart'
+    show DLeadAndQuoteWidget;
+export '/pages/a1_proof_of_concept/e_choose_products/e_choose_products_widget.dart'
+    show EChooseProductsWidget;
+export '/pages/a1_proof_of_concept/f_make_payment/f_make_payment_widget.dart'
+    show FMakePaymentWidget;
+export '/pages/a1_proof_of_concept/b_partner/b_partner_widget.dart'
+    show BPartnerWidget;
+export '/pages/a1_proof_of_concept/c_sales_channel/c_sales_channel_widget.dart'
+    show CSalesChannelWidget;
+export '/pages/a1_proof_of_concept/utilities/divergence_fipe_table/divergence_fipe_table_widget.dart'
+    show DivergenceFipeTableWidget;
+export '/pages/a1_proof_of_concept/utilities/testing_form_validation/testing_form_validation_widget.dart'
+    show TestingFormValidationWidget;
+export '/pages/a2_proof_of_concept/associate_case/associate_case_widget.dart'
+    show AssociateCaseWidget;
+export '/pages/a2_proof_of_concept/realtime_chat_api_call/realtime_chat_api_call_widget.dart'
+    show RealtimeChatApiCallWidget;
+export '/pages/supabase_testing/project_members/project_members_widget.dart'
+    show ProjectMembersWidget;
+export '/pages/supabase_testing/project_members_copy/project_members_copy_widget.dart'
+    show ProjectMembersCopyWidget;
+export '/pages/a2_proof_of_concept/realtime_chat_supabase_query/realtime_chat_supabase_query_widget.dart'
+    show RealtimeChatSupabaseQueryWidget;
+export '/pages/a2_proof_of_concept/list_view_test/list_view_test_widget.dart'
+    show ListViewTestWidget;

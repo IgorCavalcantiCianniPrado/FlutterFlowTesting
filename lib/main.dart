@@ -43,6 +43,14 @@ class _MyAppState extends State<MyApp> {
 
   late AppStateNotifier _appStateNotifier;
   late GoRouter _router;
+  String getRoute([RouteMatch? routeMatch]) {
+    final RouteMatch lastMatch =
+        routeMatch ?? _router.routerDelegate.currentConfiguration.last;
+    final RouteMatchList matchList = lastMatch is ImperativeRouteMatch
+        ? lastMatch.matches
+        : _router.routerDelegate.currentConfiguration;
+    return matchList.uri.toString();
+  }
 
   @override
   void initState() {
@@ -110,7 +118,6 @@ class _NavBarPageState extends State<NavBarPage> {
       'CustomWidget': const CustomWidgetWidget(),
       'CustomAction': const CustomActionWidget(),
       'StopWatchWithPubDev': const StopWatchWithPubDevWidget(),
-      'PostSalesAuth': const PostSalesAuthWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
@@ -228,30 +235,6 @@ class _NavBarPageState extends State<NavBarPage> {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 3
-                        ? FlutterFlowTheme.of(context).primary
-                        : const Color(0x8A000000),
-                    fontSize: 11.0,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          FloatingNavbarItem(
-            customWidget: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.hdr_auto,
-                  color: currentIndex == 4
-                      ? FlutterFlowTheme.of(context).primary
-                      : const Color(0x8A000000),
-                  size: 24.0,
-                ),
-                Text(
-                  'AuthSales',
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: currentIndex == 4
                         ? FlutterFlowTheme.of(context).primary
                         : const Color(0x8A000000),
                     fontSize: 11.0,
