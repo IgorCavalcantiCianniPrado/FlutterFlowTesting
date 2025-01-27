@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
@@ -441,6 +442,8 @@ class SupabaseIntegrationGroup {
   static GetAllStudentsCall getAllStudentsCall = GetAllStudentsCall();
   static GetConversationByCaseCall getConversationByCaseCall =
       GetConversationByCaseCall();
+  static GetConversationWithoutCaseCall getConversationWithoutCaseCall =
+      GetConversationWithoutCaseCall();
 }
 
 class GetAllCasesCall {
@@ -603,6 +606,37 @@ class GetConversationByCaseCall {
       params: {},
       returnBody: true,
       encodeBodyUtf8: false,
+      decodeUtf8: true,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  List? xablau(dynamic response) => getJsonField(
+        response,
+        r'''$''',
+        true,
+      ) as List?;
+}
+
+class GetConversationWithoutCaseCall {
+  Future<ApiCallResponse> call() async {
+    final baseUrl = SupabaseIntegrationGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'Get Conversation Without Case',
+      apiUrl: '$baseUrl/rest/v1/conversations?select=*&case_id=is.null',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdjcGl2cW5mendibHNydWVjY2lmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzU1NjYxNDIsImV4cCI6MjA1MTE0MjE0Mn0.xBYyfgZxGhaH8lR8k99wHwTzcYA_9JTBW4Y8qbMUXIM',
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdjcGl2cW5mendibHNydWVjY2lmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzU1NjYxNDIsImV4cCI6MjA1MTE0MjE0Mn0.xBYyfgZxGhaH8lR8k99wHwTzcYA_9JTBW4Y8qbMUXIM',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
       decodeUtf8: false,
       cache: false,
       isStreamingApi: false,
@@ -677,6 +711,29 @@ class AddStudentInEthiopiaProjectCall {
       params: {},
       body: ffApiRequestBody,
       bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class APICallTestCall {
+  static Future<ApiCallResponse> call() async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'API Call Test',
+      apiUrl: 'https://gcpivqnfzwblsrueccif.supabase.co/rest/v1/Test?select=*',
+      callType: ApiCallType.GET,
+      headers: {
+        'apikey':
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdjcGl2cW5mendibHNydWVjY2lmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzU1NjYxNDIsImV4cCI6MjA1MTE0MjE0Mn0.xBYyfgZxGhaH8lR8k99wHwTzcYA_9JTBW4Y8qbMUXIM',
+        'Authorization':
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdjcGl2cW5mendibHNydWVjY2lmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzU1NjYxNDIsImV4cCI6MjA1MTE0MjE0Mn0.xBYyfgZxGhaH8lR8k99wHwTzcYA_9JTBW4Y8qbMUXIM',
+      },
+      params: {},
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,

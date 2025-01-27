@@ -1,11 +1,9 @@
 import '/backend/api_requests/api_calls.dart';
-import '/backend/supabase/supabase.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/a2_proof_of_concept/components/associate_case_component/associate_case_component_widget.dart';
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
@@ -132,9 +130,9 @@ class _RealtimeChatApiCallWidgetState extends State<RealtimeChatApiCallWidget> {
 
                             return Builder(
                               builder: (context) {
-                                final allCases = getJsonField(
+                                final getAllCases = getJsonField(
                                   casesListGetAllCasesResponse.jsonBody,
-                                  r'''$[:]''',
+                                  r'''$''',
                                 ).toList();
 
                                 return ListView.builder(
@@ -142,10 +140,10 @@ class _RealtimeChatApiCallWidgetState extends State<RealtimeChatApiCallWidget> {
                                   primary: false,
                                   shrinkWrap: true,
                                   scrollDirection: Axis.vertical,
-                                  itemCount: allCases.length,
-                                  itemBuilder: (context, allCasesIndex) {
-                                    final allCasesItem =
-                                        allCases[allCasesIndex];
+                                  itemCount: getAllCases.length,
+                                  itemBuilder: (context, getAllCasesIndex) {
+                                    final getAllCasesItem =
+                                        getAllCases[getAllCasesIndex];
                                     return Padding(
                                       padding: const EdgeInsetsDirectional.fromSTEB(
                                           16.0, 4.0, 16.0, 8.0),
@@ -203,7 +201,7 @@ class _RealtimeChatApiCallWidgetState extends State<RealtimeChatApiCallWidget> {
                                                     children: [
                                                       Text(
                                                         getJsonField(
-                                                          allCasesItem,
+                                                          getAllCasesItem,
                                                           r'''$.name''',
                                                         ).toString(),
                                                         style: FlutterFlowTheme
@@ -236,7 +234,7 @@ class _RealtimeChatApiCallWidgetState extends State<RealtimeChatApiCallWidget> {
                                                                         0.0),
                                                             child: Text(
                                                               getJsonField(
-                                                                allCasesItem,
+                                                                getAllCasesItem,
                                                                 r'''$.description''',
                                                               ).toString(),
                                                               style: FlutterFlowTheme
@@ -268,7 +266,7 @@ class _RealtimeChatApiCallWidgetState extends State<RealtimeChatApiCallWidget> {
                                                   FFAppState()
                                                           .CaseIdStateVariable =
                                                       getJsonField(
-                                                    allCasesItem,
+                                                    getAllCasesItem,
                                                     r'''$.id''',
                                                   );
                                                   safeSetState(() {});
@@ -378,11 +376,10 @@ class _RealtimeChatApiCallWidgetState extends State<RealtimeChatApiCallWidget> {
 
                                     return Builder(
                                       builder: (context) {
-                                        final conversationsByCase =
-                                            getJsonField(
+                                        final chatList = getJsonField(
                                           conversationsListGetConversationByCaseResponse
                                               .jsonBody,
-                                          r'''$[:]''',
+                                          r'''$''',
                                         ).toList();
 
                                         return ListView.builder(
@@ -390,12 +387,11 @@ class _RealtimeChatApiCallWidgetState extends State<RealtimeChatApiCallWidget> {
                                           primary: false,
                                           shrinkWrap: true,
                                           scrollDirection: Axis.vertical,
-                                          itemCount: conversationsByCase.length,
-                                          itemBuilder: (context,
-                                              conversationsByCaseIndex) {
-                                            final conversationsByCaseItem =
-                                                conversationsByCase[
-                                                    conversationsByCaseIndex];
+                                          itemCount: chatList.length,
+                                          itemBuilder:
+                                              (context, chatListIndex) {
+                                            final chatListItem =
+                                                chatList[chatListIndex];
                                             return Padding(
                                               padding: const EdgeInsetsDirectional
                                                   .fromSTEB(
@@ -463,7 +459,7 @@ class _RealtimeChatApiCallWidgetState extends State<RealtimeChatApiCallWidget> {
                                                             children: [
                                                               Text(
                                                                 getJsonField(
-                                                                  conversationsByCaseItem,
+                                                                  chatListItem,
                                                                   r'''$.customer_name''',
                                                                 ).toString(),
                                                                 style: FlutterFlowTheme.of(
@@ -497,7 +493,7 @@ class _RealtimeChatApiCallWidgetState extends State<RealtimeChatApiCallWidget> {
                                                                             0.0),
                                                                     child: Text(
                                                                       getJsonField(
-                                                                        conversationsByCaseItem,
+                                                                        chatListItem,
                                                                         r'''$.message''',
                                                                       ).toString(),
                                                                       style: FlutterFlowTheme.of(
@@ -643,14 +639,9 @@ class _RealtimeChatApiCallWidgetState extends State<RealtimeChatApiCallWidget> {
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 12.0, 0.0, 44.0),
                                 child: FutureBuilder<ApiCallResponse>(
-                                  future: (_model.apiRequestCompleter ??=
-                                          Completer<ApiCallResponse>()
-                                            ..complete(SupabaseIntegrationGroup
-                                                .getConversationByCaseCall
-                                                .call(
-                                              caseId: null,
-                                            )))
-                                      .future,
+                                  future: SupabaseIntegrationGroup
+                                      .getConversationWithoutCaseCall
+                                      .call(),
                                   builder: (context, snapshot) {
                                     // Customize what your widget looks like when it's loading.
                                     if (!snapshot.hasData) {
@@ -666,271 +657,263 @@ class _RealtimeChatApiCallWidgetState extends State<RealtimeChatApiCallWidget> {
                                         ),
                                       );
                                     }
-                                    final newChatsGetConversationByCaseResponse =
+                                    final newChatsGetConversationWithoutCaseResponse =
                                         snapshot.data!;
 
                                     return Builder(
                                       builder: (context) {
-                                        final newChats = getJsonField(
-                                          newChatsGetConversationByCaseResponse
+                                        final chatsWithoutCaseTrue =
+                                            getJsonField(
+                                          newChatsGetConversationWithoutCaseResponse
                                               .jsonBody,
-                                          r'''$[:]''',
+                                          r'''$''',
                                         ).toList();
 
-                                        return RefreshIndicator(
-                                          key: const Key('RefreshIndicator_2lykubee'),
-                                          onRefresh: () async {
-                                            safeSetState(() => _model
-                                                .apiRequestCompleter = null);
-                                            await _model
-                                                .waitForApiRequestCompleted();
-                                            FFAppState()
-                                                .MustUpdateNewChatsList = false;
-                                            safeSetState(() {});
-                                          },
-                                          child: ListView.builder(
-                                            padding: EdgeInsets.zero,
-                                            primary: false,
-                                            shrinkWrap: true,
-                                            scrollDirection: Axis.vertical,
-                                            itemCount: newChats.length,
-                                            itemBuilder:
-                                                (context, newChatsIndex) {
-                                              final newChatsItem =
-                                                  newChats[newChatsIndex];
-                                              return Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        16.0, 4.0, 16.0, 8.0),
-                                                child: Container(
-                                                  width: double.infinity,
-                                                  height: 60.0,
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    boxShadow: const [
-                                                      BoxShadow(
-                                                        blurRadius: 4.0,
-                                                        color:
-                                                            Color(0x32000000),
-                                                        offset: Offset(
-                                                          0.0,
-                                                          2.0,
+                                        return ListView.builder(
+                                          padding: EdgeInsets.zero,
+                                          primary: false,
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.vertical,
+                                          itemCount:
+                                              chatsWithoutCaseTrue.length,
+                                          itemBuilder: (context,
+                                              chatsWithoutCaseTrueIndex) {
+                                            final chatsWithoutCaseTrueItem =
+                                                chatsWithoutCaseTrue[
+                                                    chatsWithoutCaseTrueIndex];
+                                            return Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      16.0, 4.0, 16.0, 8.0),
+                                              child: Container(
+                                                width: double.infinity,
+                                                height: 60.0,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  boxShadow: const [
+                                                    BoxShadow(
+                                                      blurRadius: 4.0,
+                                                      color: Color(0x32000000),
+                                                      offset: Offset(
+                                                        0.0,
+                                                        2.0,
+                                                      ),
+                                                    )
+                                                  ],
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          8.0, 0.0, 8.0, 0.0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(26.0),
+                                                        child: Image.network(
+                                                          'https://www.jornalopcao.com.br/wp-content/uploads/2014/06/100_9002.jpg',
+                                                          width: 36.0,
+                                                          height: 36.0,
+                                                          fit: BoxFit.cover,
                                                         ),
-                                                      )
-                                                    ],
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            8.0),
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(8.0, 0.0,
-                                                                8.0, 0.0),
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      26.0),
-                                                          child: Image.network(
-                                                            'https://www.jornalopcao.com.br/wp-content/uploads/2014/06/100_9002.jpg',
-                                                            width: 36.0,
-                                                            height: 36.0,
-                                                            fit: BoxFit.cover,
+                                                      ),
+                                                      Expanded(
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      12.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          child: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                getJsonField(
+                                                                  chatsWithoutCaseTrueItem,
+                                                                  r'''$.customer_name''',
+                                                                ).toString(),
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Plus Jakarta Sans',
+                                                                      color: const Color(
+                                                                          0xFF14181B),
+                                                                      fontSize:
+                                                                          14.0,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal,
+                                                                    ),
+                                                              ),
+                                                              Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                children: [
+                                                                  Padding(
+                                                                    padding: const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            4.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                    child: Text(
+                                                                      getJsonField(
+                                                                        chatsWithoutCaseTrueItem,
+                                                                        r'''$.message''',
+                                                                      ).toString(),
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .labelMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Plus Jakarta Sans',
+                                                                            color:
+                                                                                const Color(0xFF57636C),
+                                                                            fontSize:
+                                                                                14.0,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                            fontWeight:
+                                                                                FontWeight.normal,
+                                                                          ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ],
                                                           ),
                                                         ),
-                                                        Expanded(
-                                                          child: Padding(
+                                                      ),
+                                                      Builder(
+                                                        builder: (context) =>
+                                                            FFButtonWidget(
+                                                          onPressed: () async {
+                                                            FFAppState()
+                                                                    .ConversationIdStateVariable =
+                                                                getJsonField(
+                                                              chatsWithoutCaseTrueItem,
+                                                              r'''$.id''',
+                                                            );
+                                                            safeSetState(() {});
+                                                            await showDialog(
+                                                              context: context,
+                                                              builder:
+                                                                  (dialogContext) {
+                                                                return Dialog(
+                                                                  elevation: 0,
+                                                                  insetPadding:
+                                                                      EdgeInsets
+                                                                          .zero,
+                                                                  backgroundColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  alignment: const AlignmentDirectional(
+                                                                          0.0,
+                                                                          0.0)
+                                                                      .resolve(
+                                                                          Directionality.of(
+                                                                              context)),
+                                                                  child:
+                                                                      GestureDetector(
+                                                                    onTap: () {
+                                                                      FocusScope.of(
+                                                                              dialogContext)
+                                                                          .unfocus();
+                                                                      FocusManager
+                                                                          .instance
+                                                                          .primaryFocus
+                                                                          ?.unfocus();
+                                                                    },
+                                                                    child:
+                                                                        const AssociateCaseComponentWidget(),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            );
+                                                          },
+                                                          text:
+                                                              'Associate Case',
+                                                          options:
+                                                              FFButtonOptions(
+                                                            width: 120.0,
+                                                            height: 36.0,
                                                             padding:
                                                                 const EdgeInsetsDirectional
                                                                     .fromSTEB(
-                                                                        12.0,
+                                                                        0.0,
                                                                         0.0,
                                                                         0.0,
                                                                         0.0),
-                                                            child: Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Text(
-                                                                  getJsonField(
-                                                                    newChatsItem,
-                                                                    r'''$.customer_name''',
-                                                                  ).toString(),
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Plus Jakarta Sans',
-                                                                        color: const Color(
-                                                                            0xFF14181B),
-                                                                        fontSize:
-                                                                            14.0,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        fontWeight:
-                                                                            FontWeight.normal,
-                                                                      ),
-                                                                ),
-                                                                Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                                            iconPadding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            color: const Color(
+                                                                0xFF4B39EF),
+                                                            textStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Outfit',
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontSize:
+                                                                          14.0,
+                                                                      letterSpacing:
                                                                           0.0,
-                                                                          4.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                      child:
-                                                                          Text(
-                                                                        getJsonField(
-                                                                          newChatsItem,
-                                                                          r'''$.message''',
-                                                                        ).toString(),
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .labelMedium
-                                                                            .override(
-                                                                              fontFamily: 'Plus Jakarta Sans',
-                                                                              color: const Color(0xFF57636C),
-                                                                              fontSize: 14.0,
-                                                                              letterSpacing: 0.0,
-                                                                              fontWeight: FontWeight.normal,
-                                                                            ),
-                                                                      ),
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal,
                                                                     ),
-                                                                  ],
-                                                                ),
-                                                              ],
+                                                            elevation: 2.0,
+                                                            borderSide:
+                                                                const BorderSide(
+                                                              color: Colors
+                                                                  .transparent,
+                                                              width: 1.0,
                                                             ),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8.0),
                                                           ),
                                                         ),
-                                                        Builder(
-                                                          builder: (context) =>
-                                                              FFButtonWidget(
-                                                            onPressed:
-                                                                () async {
-                                                              await showDialog(
-                                                                context:
-                                                                    context,
-                                                                builder:
-                                                                    (dialogContext) {
-                                                                  return Dialog(
-                                                                    elevation:
-                                                                        0,
-                                                                    insetPadding:
-                                                                        EdgeInsets
-                                                                            .zero,
-                                                                    backgroundColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    alignment: const AlignmentDirectional(
-                                                                            0.0,
-                                                                            0.0)
-                                                                        .resolve(
-                                                                            Directionality.of(context)),
-                                                                    child:
-                                                                        GestureDetector(
-                                                                      onTap:
-                                                                          () {
-                                                                        FocusScope.of(dialogContext)
-                                                                            .unfocus();
-                                                                        FocusManager
-                                                                            .instance
-                                                                            .primaryFocus
-                                                                            ?.unfocus();
-                                                                      },
-                                                                      child:
-                                                                          const AssociateCaseComponentWidget(),
-                                                                    ),
-                                                                  );
-                                                                },
-                                                              );
-
-                                                              FFAppState()
-                                                                      .ConversationIdStateVariable =
-                                                                  getJsonField(
-                                                                newChatsItem,
-                                                                r'''$.id''',
-                                                              );
-                                                              safeSetState(
-                                                                  () {});
-                                                            },
-                                                            text:
-                                                                'Associate Case',
-                                                            options:
-                                                                FFButtonOptions(
-                                                              width: 120.0,
-                                                              height: 36.0,
-                                                              padding:
-                                                                  const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              iconPadding:
-                                                                  const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              color: const Color(
-                                                                  0xFF4B39EF),
-                                                              textStyle:
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Outfit',
-                                                                        color: Colors
-                                                                            .white,
-                                                                        fontSize:
-                                                                            14.0,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        fontWeight:
-                                                                            FontWeight.normal,
-                                                                      ),
-                                                              elevation: 2.0,
-                                                              borderSide:
-                                                                  const BorderSide(
-                                                                color: Colors
-                                                                    .transparent,
-                                                                width: 1.0,
-                                                              ),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8.0),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
-                                              );
-                                            },
-                                          ),
+                                              ),
+                                            );
+                                          },
                                         );
                                       },
                                     );
@@ -941,17 +924,10 @@ class _RealtimeChatApiCallWidgetState extends State<RealtimeChatApiCallWidget> {
                               return Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     0.0, 12.0, 0.0, 44.0),
-                                child: FutureBuilder<List<ConversationsRow>>(
-                                  future: (_model.requestCompleter ??=
-                                          Completer<List<ConversationsRow>>()
-                                            ..complete(
-                                                ConversationsTable().queryRows(
-                                              queryFn: (q) => q.isFilter(
-                                                'case_id',
-                                                null,
-                                              ),
-                                            )))
-                                      .future,
+                                child: FutureBuilder<ApiCallResponse>(
+                                  future: SupabaseIntegrationGroup
+                                      .getConversationWithoutCaseCall
+                                      .call(),
                                   builder: (context, snapshot) {
                                     // Customize what your widget looks like when it's loading.
                                     if (!snapshot.hasData) {
@@ -967,264 +943,265 @@ class _RealtimeChatApiCallWidgetState extends State<RealtimeChatApiCallWidget> {
                                         ),
                                       );
                                     }
-                                    List<ConversationsRow>
-                                        newChatsConversationsRowList =
+                                    final newChatsGetConversationWithoutCaseResponse =
                                         snapshot.data!;
 
-                                    return RefreshIndicator(
-                                      key: const Key('RefreshIndicator_ikp24rx4'),
-                                      onRefresh: () async {
-                                        safeSetState(() =>
-                                            _model.requestCompleter = null);
-                                        await _model.waitForRequestCompleted();
-                                        FFAppState().MustUpdateNewChatsList =
-                                            false;
-                                        safeSetState(() {});
-                                      },
-                                      child: ListView.builder(
-                                        padding: EdgeInsets.zero,
-                                        primary: false,
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.vertical,
-                                        itemCount:
-                                            newChatsConversationsRowList.length,
-                                        itemBuilder: (context, newChatsIndex) {
-                                          final newChatsConversationsRow =
-                                              newChatsConversationsRowList[
-                                                  newChatsIndex];
-                                          return Padding(
-                                            padding:
-                                                const EdgeInsetsDirectional.fromSTEB(
-                                                    16.0, 4.0, 16.0, 8.0),
-                                            child: Container(
-                                              width: double.infinity,
-                                              height: 60.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                boxShadow: const [
-                                                  BoxShadow(
-                                                    blurRadius: 4.0,
-                                                    color: Color(0x32000000),
-                                                    offset: Offset(
-                                                      0.0,
-                                                      2.0,
-                                                    ),
-                                                  )
-                                                ],
-                                                borderRadius:
-                                                    BorderRadius.circular(8.0),
-                                              ),
-                                              child: Padding(
-                                                padding: const EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        8.0, 0.0, 8.0, 0.0),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              26.0),
-                                                      child: Image.network(
-                                                        'https://www.jornalopcao.com.br/wp-content/uploads/2014/06/100_9002.jpg',
-                                                        width: 36.0,
-                                                        height: 36.0,
-                                                        fit: BoxFit.cover,
+                                    return Builder(
+                                      builder: (context) {
+                                        final chatsWithoutCaseFalse =
+                                            getJsonField(
+                                          newChatsGetConversationWithoutCaseResponse
+                                              .jsonBody,
+                                          r'''$''',
+                                        ).toList();
+
+                                        return ListView.builder(
+                                          padding: EdgeInsets.zero,
+                                          primary: false,
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.vertical,
+                                          itemCount:
+                                              chatsWithoutCaseFalse.length,
+                                          itemBuilder: (context,
+                                              chatsWithoutCaseFalseIndex) {
+                                            final chatsWithoutCaseFalseItem =
+                                                chatsWithoutCaseFalse[
+                                                    chatsWithoutCaseFalseIndex];
+                                            return Padding(
+                                              padding: const EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      16.0, 4.0, 16.0, 8.0),
+                                              child: Container(
+                                                width: double.infinity,
+                                                height: 60.0,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  boxShadow: const [
+                                                    BoxShadow(
+                                                      blurRadius: 4.0,
+                                                      color: Color(0x32000000),
+                                                      offset: Offset(
+                                                        0.0,
+                                                        2.0,
                                                       ),
-                                                    ),
-                                                    Expanded(
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    12.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              valueOrDefault<
-                                                                  String>(
-                                                                newChatsConversationsRow
-                                                                    .customerName,
-                                                                'aaa',
-                                                              ),
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Plus Jakarta Sans',
-                                                                    color: const Color(
-                                                                        0xFF14181B),
-                                                                    fontSize:
-                                                                        14.0,
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .normal,
-                                                                  ),
-                                                            ),
-                                                            Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              children: [
-                                                                Padding(
-                                                                  padding: const EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          4.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                  child: Text(
-                                                                    valueOrDefault<
-                                                                        String>(
-                                                                      newChatsConversationsRow
-                                                                          .message,
-                                                                      'aaa',
-                                                                    ),
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .labelMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Plus Jakarta Sans',
-                                                                          color:
-                                                                              const Color(0xFF57636C),
-                                                                          fontSize:
-                                                                              14.0,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          fontWeight:
-                                                                              FontWeight.normal,
-                                                                        ),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ],
+                                                    )
+                                                  ],
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          8.0, 0.0, 8.0, 0.0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(26.0),
+                                                        child: Image.network(
+                                                          'https://www.jornalopcao.com.br/wp-content/uploads/2014/06/100_9002.jpg',
+                                                          width: 36.0,
+                                                          height: 36.0,
+                                                          fit: BoxFit.cover,
                                                         ),
                                                       ),
-                                                    ),
-                                                    Builder(
-                                                      builder: (context) =>
-                                                          FFButtonWidget(
-                                                        onPressed: () async {
-                                                          FFAppState()
-                                                                  .ConversationIdStateVariable =
-                                                              newChatsConversationsRow
-                                                                  .id;
-                                                          safeSetState(() {});
-                                                          await showDialog(
-                                                            context: context,
-                                                            builder:
-                                                                (dialogContext) {
-                                                              return Dialog(
-                                                                elevation: 0,
-                                                                insetPadding:
-                                                                    EdgeInsets
-                                                                        .zero,
-                                                                backgroundColor:
-                                                                    Colors
-                                                                        .transparent,
-                                                                alignment: const AlignmentDirectional(
-                                                                        0.0,
-                                                                        0.0)
-                                                                    .resolve(
-                                                                        Directionality.of(
-                                                                            context)),
-                                                                child:
-                                                                    GestureDetector(
-                                                                  onTap: () {
-                                                                    FocusScope.of(
-                                                                            dialogContext)
-                                                                        .unfocus();
-                                                                    FocusManager
-                                                                        .instance
-                                                                        .primaryFocus
-                                                                        ?.unfocus();
-                                                                  },
-                                                                  child:
-                                                                      const AssociateCaseComponentWidget(),
-                                                                ),
-                                                              );
-                                                            },
-                                                          );
-                                                        },
-                                                        text: 'Associate Case',
-                                                        options:
-                                                            FFButtonOptions(
-                                                          width: 120.0,
-                                                          height: 36.0,
+                                                      Expanded(
+                                                        child: Padding(
                                                           padding:
                                                               const EdgeInsetsDirectional
                                                                   .fromSTEB(
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0),
-                                                          iconPadding:
-                                                              const EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
+                                                                      12.0,
                                                                       0.0,
                                                                       0.0,
                                                                       0.0),
-                                                          color:
-                                                              const Color(0xFF4B39EF),
-                                                          textStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Outfit',
-                                                                    color: Colors
-                                                                        .white,
-                                                                    fontSize:
-                                                                        14.0,
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .normal,
+                                                          child: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                getJsonField(
+                                                                  chatsWithoutCaseFalseItem,
+                                                                  r'''$.customer_name''',
+                                                                ).toString(),
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Plus Jakarta Sans',
+                                                                      color: const Color(
+                                                                          0xFF14181B),
+                                                                      fontSize:
+                                                                          14.0,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal,
+                                                                    ),
+                                                              ),
+                                                              Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                children: [
+                                                                  Padding(
+                                                                    padding: const EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            4.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                    child: Text(
+                                                                      getJsonField(
+                                                                        chatsWithoutCaseFalseItem,
+                                                                        r'''$.message''',
+                                                                      ).toString(),
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .labelMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Plus Jakarta Sans',
+                                                                            color:
+                                                                                const Color(0xFF57636C),
+                                                                            fontSize:
+                                                                                14.0,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                            fontWeight:
+                                                                                FontWeight.normal,
+                                                                          ),
+                                                                    ),
                                                                   ),
-                                                          elevation: 2.0,
-                                                          borderSide:
-                                                              const BorderSide(
-                                                            color: Colors
-                                                                .transparent,
-                                                            width: 1.0,
+                                                                ],
+                                                              ),
+                                                            ],
                                                           ),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.0),
                                                         ),
                                                       ),
-                                                    ),
-                                                  ],
+                                                      Builder(
+                                                        builder: (context) =>
+                                                            FFButtonWidget(
+                                                          onPressed: () async {
+                                                            FFAppState()
+                                                                    .ConversationIdStateVariable =
+                                                                getJsonField(
+                                                              chatsWithoutCaseFalseItem,
+                                                              r'''$.id''',
+                                                            );
+                                                            safeSetState(() {});
+                                                            await showDialog(
+                                                              context: context,
+                                                              builder:
+                                                                  (dialogContext) {
+                                                                return Dialog(
+                                                                  elevation: 0,
+                                                                  insetPadding:
+                                                                      EdgeInsets
+                                                                          .zero,
+                                                                  backgroundColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  alignment: const AlignmentDirectional(
+                                                                          0.0,
+                                                                          0.0)
+                                                                      .resolve(
+                                                                          Directionality.of(
+                                                                              context)),
+                                                                  child:
+                                                                      GestureDetector(
+                                                                    onTap: () {
+                                                                      FocusScope.of(
+                                                                              dialogContext)
+                                                                          .unfocus();
+                                                                      FocusManager
+                                                                          .instance
+                                                                          .primaryFocus
+                                                                          ?.unfocus();
+                                                                    },
+                                                                    child:
+                                                                        const AssociateCaseComponentWidget(),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            );
+                                                          },
+                                                          text:
+                                                              'Associate Case',
+                                                          options:
+                                                              FFButtonOptions(
+                                                            width: 120.0,
+                                                            height: 36.0,
+                                                            padding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            iconPadding:
+                                                                const EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            color: const Color(
+                                                                0xFF4B39EF),
+                                                            textStyle:
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Outfit',
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontSize:
+                                                                          14.0,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal,
+                                                                    ),
+                                                            elevation: 2.0,
+                                                            borderSide:
+                                                                const BorderSide(
+                                                              color: Colors
+                                                                  .transparent,
+                                                              width: 1.0,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8.0),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          );
-                                        },
-                                      ),
+                                            );
+                                          },
+                                        );
+                                      },
                                     );
                                   },
                                 ),

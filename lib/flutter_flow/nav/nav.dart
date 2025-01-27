@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '/backend/schema/structs/index.dart';
+
 
 import '/index.dart';
 import '/main.dart';
@@ -180,6 +182,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'RealtimeChatSupabaseQuery',
           path: '/realtimeChatSupabaseQuery',
           builder: (context, params) => const RealtimeChatSupabaseQueryWidget(),
+        ),
+        FFRoute(
+          name: 'ListViewTest',
+          path: '/listViewTest',
+          builder: (context, params) => const ListViewTestWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -251,6 +258,7 @@ class FFParameters {
     String paramName,
     ParamType type, {
     bool isList = false,
+    StructBuilder<T>? structBuilder,
   }) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -268,6 +276,7 @@ class FFParameters {
       param,
       type,
       isList,
+      structBuilder: structBuilder,
     );
   }
 }

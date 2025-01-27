@@ -278,7 +278,8 @@ class _AssociateCaseComponentWidgetState
                         backgroundColor: FlutterFlowTheme.of(context).secondary,
                       ),
                     );
-                    FFAppState().MustUpdateNewChatsList = true;
+                    FFAppState().MustUpdateNewChatsList =
+                        !(FFAppState().MustUpdateNewChatsList ?? true);
                     safeSetState(() {});
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -434,7 +435,8 @@ class _AssociateCaseComponentWidgetState
                                 FlutterFlowTheme.of(context).secondary,
                           ),
                         );
-                        FFAppState().MustUpdateNewChatsList = true;
+                        FFAppState().MustUpdateNewChatsList =
+                            !(FFAppState().MustUpdateNewChatsList ?? true);
                         safeSetState(() {});
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(

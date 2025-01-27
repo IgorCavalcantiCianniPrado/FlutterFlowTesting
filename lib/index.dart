@@ -47,3 +47,5 @@ export '/pages/supabase_testing/project_members_copy/project_members_copy_widget
     show ProjectMembersCopyWidget;
 export '/pages/a2_proof_of_concept/realtime_chat_supabase_query/realtime_chat_supabase_query_widget.dart'
     show RealtimeChatSupabaseQueryWidget;
+export '/pages/a2_proof_of_concept/list_view_test/list_view_test_widget.dart'
+    show ListViewTestWidget;

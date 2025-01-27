@@ -1,9 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'realtime_chat_api_call_widget.dart' show RealtimeChatApiCallWidget;
+import 'list_view_test_widget.dart' show ListViewTestWidget;
 import 'package:flutter/material.dart';
 
-class RealtimeChatApiCallModel
-    extends FlutterFlowModel<RealtimeChatApiCallWidget> {
+class ListViewTestModel extends FlutterFlowModel<ListViewTestWidget> {
   @override
   void initState(BuildContext context) {}
 
