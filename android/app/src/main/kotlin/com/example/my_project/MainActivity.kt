@@ -1,4 +1,4 @@
-package com.mycompany.ffquickstartapp
+package com.mycompany.supabasekeycloaklogintest
 
 import io.flutter.embedding.android.FlutterActivity
 

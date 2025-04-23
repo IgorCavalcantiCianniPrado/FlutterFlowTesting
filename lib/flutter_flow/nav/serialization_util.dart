@@ -1,8 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-
-import '/backend/schema/structs/index.dart';
+import 'package:from_css_color/from_css_color.dart';
 
 import '/backend/supabase/supabase.dart';
 
@@ -71,9 +70,6 @@ String? serializeParam(
         data = uploadedFileToString(param as FFUploadedFile);
       case ParamType.JSON:
         data = json.encode(param);
-
-      case ParamType.DataStruct:
-        data = param is BaseStruct ? param.serialize() : null;
 
       case ParamType.SupabaseRow:
         return json.encode((param as SupabaseDataRow).data);
@@ -154,16 +150,14 @@ enum ParamType {
   FFUploadedFile,
   JSON,
 
-  DataStruct,
   SupabaseRow,
 }
 
 dynamic deserializeParam<T>(
   String? param,
   ParamType paramType,
-  bool isList, {
-  StructBuilder<T>? structBuilder,
-}) {
+  bool isList,
+) {
   try {
     if (param == null) {
       return null;
@@ -174,14 +168,9 @@ dynamic deserializeParam<T>(
         return null;
       }
       return paramValues
-          .whereType<String>()
-          .map((p) => p)
-          .map((p) => deserializeParam<T>(
-                p,
-                paramType,
-                false,
-                structBuilder: structBuilder,
-              ))
+          .where((p) => p is String)
+          .map((p) => p as String)
+          .map((p) => deserializeParam<T>(p, paramType, false))
           .where((p) => p != null)
           .map((p) => p! as T)
           .toList();
@@ -216,19 +205,95 @@ dynamic deserializeParam<T>(
       case ParamType.SupabaseRow:
         final data = json.decode(param) as Map<String, dynamic>;
         switch (T) {
-          case StudentsRow:
-            return StudentsRow(data);
-          case CasesRow:
-            return CasesRow(data);
-          case ConversationsRow:
-            return ConversationsRow(data);
+          case ServiceRow:
+            return ServiceRow(data);
+          case PermissionRow:
+            return PermissionRow(data);
+          case ChannelRow:
+            return ChannelRow(data);
+          case FilterRow:
+            return FilterRow(data);
+          case SkillLevelRow:
+            return SkillLevelRow(data);
+          case InteractionRow:
+            return InteractionRow(data);
+          case AgentRouterRow:
+            return AgentRouterRow(data);
+          case PercentRow:
+            return PercentRow(data);
+          case FormRow:
+            return FormRow(data);
+          case QueueUserRow:
+            return QueueUserRow(data);
+          case MacroRow:
+            return MacroRow(data);
+          case AgentStatusRow:
+            return AgentStatusRow(data);
+          case ArticleCategoryRow:
+            return ArticleCategoryRow(data);
+          case VResultRow:
+            return VResultRow(data);
+          case TaskRow:
+            return TaskRow(data);
+          case ServiceSlaRow:
+            return ServiceSlaRow(data);
+          case QueueRouterRow:
+            return QueueRouterRow(data);
+          case ProblemRow:
+            return ProblemRow(data);
+          case TeamUserRow:
+            return TeamUserRow(data);
+          case SlaRow:
+            return SlaRow(data);
+          case TaskConversationRow:
+            return TaskConversationRow(data);
+          case CustomerRow:
+            return CustomerRow(data);
+          case ArticleRow:
+            return ArticleRow(data);
+          case SlaRuleRow:
+            return SlaRuleRow(data);
+          case TaggingRow:
+            return TaggingRow(data);
+          case RoleRow:
+            return RoleRow(data);
+          case ServiceSkillRow:
+            return ServiceSkillRow(data);
+          case SkillRow:
+            return SkillRow(data);
+          case TaskEscalationRow:
+            return TaskEscalationRow(data);
+          case UserRow:
+            return UserRow(data);
+          case TagRow:
+            return TagRow(data);
+          case TesteRow:
+            return TesteRow(data);
+          case ParticipantRow:
+            return ParticipantRow(data);
+          case VtaskRow:
+            return VtaskRow(data);
+          case AgentPresenceRow:
+            return AgentPresenceRow(data);
+          case TeamRow:
+            return TeamRow(data);
+          case RolePermissionRow:
+            return RolePermissionRow(data);
+          case PriorityRow:
+            return PriorityRow(data);
+          case ConversationRow:
+            return ConversationRow(data);
+          case QueueRow:
+            return QueueRow(data);
+          case TaskExecutionRow:
+            return TaskExecutionRow(data);
+          case ArticleViewRow:
+            return ArticleViewRow(data);
+          case UserNotificationRow:
+            return UserNotificationRow(data);
           default:
             return null;
         }
-
-      case ParamType.DataStruct:
-        final data = json.decode(param) as Map<String, dynamic>? ?? {};
-        return structBuilder != null ? structBuilder(data) : null;
 
       default:
         return null;

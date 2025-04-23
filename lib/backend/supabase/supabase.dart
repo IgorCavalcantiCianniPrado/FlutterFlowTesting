@@ -1,11 +1,10 @@
 import 'package:supabase_flutter/supabase_flutter.dart' hide Provider;
 
 export 'database/database.dart';
-export 'storage/storage.dart';
 
-String _kSupabaseUrl = 'https://gcpivqnfzwblsrueccif.supabase.co';
+String _kSupabaseUrl = 'https://supabase-dev5.ituran.com.br';
 String _kSupabaseAnonKey =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdjcGl2cW5mendibHNydWVjY2lmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzU1NjYxNDIsImV4cCI6MjA1MTE0MjE0Mn0.xBYyfgZxGhaH8lR8k99wHwTzcYA_9JTBW4Y8qbMUXIM';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE';
 
 class SupaFlow {
   SupaFlow._();
@@ -18,9 +17,12 @@ class SupaFlow {
 
   static Future initialize() => Supabase.initialize(
         url: _kSupabaseUrl,
+        headers: {
+          'X-Client-Info': 'flutterflow',
+        },
         anonKey: _kSupabaseAnonKey,
         debug: false,
         authOptions:
-            const FlutterAuthClientOptions(authFlowType: AuthFlowType.implicit),
+            FlutterAuthClientOptions(authFlowType: AuthFlowType.implicit),
       );
 }

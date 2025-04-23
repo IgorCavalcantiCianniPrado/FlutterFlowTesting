@@ -3,12 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '/backend/schema/structs/index.dart';
 
+import '/flutter_flow/flutter_flow_util.dart';
 
 import '/index.dart';
-import '/main.dart';
-import '/flutter_flow/flutter_flow_util.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
@@ -36,157 +34,22 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
-      errorBuilder: (context, state) => const RealtimeChatApiCallWidget(),
+      errorBuilder: (context, state) => LoginWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => const RealtimeChatApiCallWidget(),
+          builder: (context, _) => LoginWidget(),
         ),
         FFRoute(
-          name: 'CustomFunction',
-          path: '/customFunction',
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'CustomFunction')
-              : const CustomFunctionWidget(),
+          name: LoginWidget.routeName,
+          path: LoginWidget.routePath,
+          builder: (context, params) => LoginWidget(),
         ),
         FFRoute(
-          name: 'CustomWidget',
-          path: '/customWidget',
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'CustomWidget')
-              : const CustomWidgetWidget(),
-        ),
-        FFRoute(
-          name: 'CustomAction',
-          path: '/customAction',
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'CustomAction')
-              : const CustomActionWidget(),
-        ),
-        FFRoute(
-          name: 'StopWatch',
-          path: '/stopWatch',
-          builder: (context, params) => const NavBarPage(
-            initialPage: '',
-            page: StopWatchWidget(),
-          ),
-        ),
-        FFRoute(
-          name: 'StopWatchWithPubDev',
-          path: '/stopWatchWithPubDev',
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'StopWatchWithPubDev')
-              : const StopWatchWithPubDevWidget(),
-        ),
-        FFRoute(
-          name: 'UploadFile',
-          path: '/uploadFile',
-          builder: (context, params) => const UploadFileWidget(),
-        ),
-        FFRoute(
-          name: 'HomePage',
-          path: '/homePage',
-          builder: (context, params) => const HomePageWidget(),
-        ),
-        FFRoute(
-          name: 'SecondWhateverPage',
-          path: '/secondWhateverPage',
-          builder: (context, params) => const SecondWhateverPageWidget(),
-        ),
-        FFRoute(
-          name: 'UserInformations',
-          path: '/userInformations',
-          builder: (context, params) => const UserInformationsWidget(),
-        ),
-        FFRoute(
-          name: 'CommitTestPage',
-          path: '/commitTestPage',
-          builder: (context, params) => const CommitTestPageWidget(),
-        ),
-        FFRoute(
-          name: 'CommitTestPageTwo',
-          path: '/commitTestPageTwo',
-          builder: (context, params) => const CommitTestPageTwoWidget(),
-        ),
-        FFRoute(
-          name: 'A_Login',
-          path: '/aLogin',
-          builder: (context, params) => const ALoginWidget(),
-        ),
-        FFRoute(
-          name: 'D_LeadAndQuote',
-          path: '/dLeadAndQuote',
-          builder: (context, params) => DLeadAndQuoteWidget(
-            profileName: params.getParam(
-              'profileName',
-              ParamType.String,
-            ),
-            birthDate: params.getParam(
-              'birthDate',
-              ParamType.String,
-            ),
-          ),
-        ),
-        FFRoute(
-          name: 'E_ChooseProducts',
-          path: '/eChooseProducts',
-          builder: (context, params) => const EChooseProductsWidget(),
-        ),
-        FFRoute(
-          name: 'F_MakePayment',
-          path: '/fMakePayment',
-          builder: (context, params) => const FMakePaymentWidget(),
-        ),
-        FFRoute(
-          name: 'B_Partner',
-          path: '/bPartner',
-          builder: (context, params) => const BPartnerWidget(),
-        ),
-        FFRoute(
-          name: 'C_SalesChannel',
-          path: '/cSalesChannel',
-          builder: (context, params) => const CSalesChannelWidget(),
-        ),
-        FFRoute(
-          name: 'DivergenceFipeTable',
-          path: '/divergenceFipeTable',
-          builder: (context, params) => const DivergenceFipeTableWidget(),
-        ),
-        FFRoute(
-          name: 'TestingFormValidation',
-          path: '/testingFormValidation',
-          builder: (context, params) => const TestingFormValidationWidget(),
-        ),
-        FFRoute(
-          name: 'AssociateCase',
-          path: '/associateCase',
-          builder: (context, params) => const AssociateCaseWidget(),
-        ),
-        FFRoute(
-          name: 'RealtimeChatApiCall',
-          path: '/realtimeChatApiCall',
-          builder: (context, params) => const RealtimeChatApiCallWidget(),
-        ),
-        FFRoute(
-          name: 'ProjectMembers',
-          path: '/projectMembers',
-          builder: (context, params) => const ProjectMembersWidget(),
-        ),
-        FFRoute(
-          name: 'ProjectMembersCopy',
-          path: '/projectMembersCopy',
-          builder: (context, params) => const ProjectMembersCopyWidget(),
-        ),
-        FFRoute(
-          name: 'RealtimeChatSupabaseQuery',
-          path: '/realtimeChatSupabaseQuery',
-          builder: (context, params) => const RealtimeChatSupabaseQueryWidget(),
-        ),
-        FFRoute(
-          name: 'ListViewTest',
-          path: '/listViewTest',
-          builder: (context, params) => const ListViewTestWidget(),
+          name: CallbackPageWidget.routeName,
+          path: CallbackPageWidget.routePath,
+          builder: (context, params) => CallbackPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -258,7 +121,6 @@ class FFParameters {
     String paramName,
     ParamType type, {
     bool isList = false,
-    StructBuilder<T>? structBuilder,
   }) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -276,7 +138,6 @@ class FFParameters {
       param,
       type,
       isList,
-      structBuilder: structBuilder,
     );
   }
 }
@@ -352,7 +213,7 @@ class TransitionInfo {
   final Duration duration;
   final Alignment? alignment;
 
-  static TransitionInfo appDefault() => const TransitionInfo(hasTransition: false);
+  static TransitionInfo appDefault() => TransitionInfo(hasTransition: false);
 }
 
 class RootPageContext {
