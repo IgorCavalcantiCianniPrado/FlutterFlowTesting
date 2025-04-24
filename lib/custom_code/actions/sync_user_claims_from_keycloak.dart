@@ -14,12 +14,8 @@ import '/custom_code/actions/index.dart';
 
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'dart:html' as html;
 
 Future<String?> syncUserClaimsFromKeycloak() async {
-  print("ENTROU NO syncUserClaimsFromKeycloak()");
-  html.window.console.log("ENTROU NO syncUserClaimsFromKeycloak()");
-
   final supabase = Supabase.instance.client;
 
   try {
@@ -31,7 +27,6 @@ Future<String?> syncUserClaimsFromKeycloak() async {
     final refreshToken = session?.refreshToken;
 
     if (providerToken == null) {
-      html.window.console.log("No provider token found");
       print('No provider token found');
       return "";
     }
@@ -44,8 +39,6 @@ Future<String?> syncUserClaimsFromKeycloak() async {
 
     print("Decoded token: $decoded");
 
-    html.window.console.log("VAI ATUALIZAR USUÁRIO!");
-
     // Step 3: Update user
     final userUpdateResponse = await supabase.auth.updateUser(
       UserAttributes(
@@ -56,8 +49,6 @@ Future<String?> syncUserClaimsFromKeycloak() async {
         },
       ),
     );
-
-    html.window.console.log("ATUALIZOU USUÁRIO!");
 
     if (userUpdateResponse.user == null) {
       print('Failed to update user');
