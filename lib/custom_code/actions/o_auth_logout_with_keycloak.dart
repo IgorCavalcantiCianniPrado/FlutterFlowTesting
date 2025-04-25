@@ -7,15 +7,9 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import 'index.dart'; // Imports other custom actions
-
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-Future oAuthLoginWithKeycloak() async {
-  await Supabase.instance.client.auth.signInWithOAuth(
-    OAuthProvider.keycloak,
-    redirectTo:
-        'https://supabase-keycloak-login-test-m0g7xb.flutterflow.app/callbackPage',
-    scopes: 'openid',
-  );
+Future oAuthLogoutWithKeycloak() async {
+  await Supabase.instance.client.auth.signOut();
+  // await Supabase.instance.client.auth.removeSession();
 }

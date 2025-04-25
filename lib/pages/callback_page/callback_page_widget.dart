@@ -32,6 +32,8 @@ class _CallbackPageWidgetState extends State<CallbackPageWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await actions.syncUserClaimsFromKeycloak();
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
   @override
@@ -81,11 +83,10 @@ class _CallbackPageWidgetState extends State<CallbackPageWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              StreamBuilder<List<InteractionRow>>(
-                stream: _model.listViewSupabaseStream ??= SupaFlow.client
-                    .from("interaction")
-                    .stream(primaryKey: ['id']).map((list) =>
-                        list.map((item) => InteractionRow(item)).toList()),
+              FutureBuilder<List<InteractionRow>>(
+                future: InteractionTable().queryRows(
+                  queryFn: (q) => q,
+                ),
                 builder: (context, snapshot) {
                   // Customize what your widget looks like when it's loading.
                   if (!snapshot.hasData) {

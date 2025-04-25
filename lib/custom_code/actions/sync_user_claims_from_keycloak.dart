@@ -21,7 +21,9 @@ Future<String?> syncUserClaimsFromKeycloak() async {
   try {
     // Step 1: Get session
     final session = await supabase.auth.currentSession;
-    // final session = sessionResponse.data?.session;
+    print("Teste 1");
+    print("Xablauuuuuuuuuuuuu");
+    print("Session Info: $session");
 
     final providerToken = session?.providerToken;
     final refreshToken = session?.refreshToken;
